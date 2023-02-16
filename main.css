@@ -175,9 +175,16 @@ html, body{
 	font-weight: bold;
 }
 
+#menu details summary {
+	font-size: 16pt;
+	font-weight: bold;
+	padding: 15px 0;
+	cursor: pointer;
+}
+
 #history-spoiler{
 	overflow: auto;
-	height: 100%;
+	max-height: 84%;
 }
 .history-element{
 	border-bottom: 2px solid grey;
@@ -185,12 +192,6 @@ html, body{
 }
 .history-element:last-child{
 	border-bottom: none;
-}
-#history-title{
-	font-size: 16pt;
-	font-weight: bold;
-	padding: 15px 0;
-	cursor: pointer;
 }
 .history-element .title{
 	font-size: 14pt;
