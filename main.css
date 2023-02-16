@@ -163,6 +163,7 @@ html, body{
 	bottom: 2px;
 	width: 100%;
 	text-align: center;
+	user-select: none;
 }
 #footer a{
 	color: lightgrey;
@@ -174,6 +175,53 @@ html, body{
 	font-weight: bold;
 }
 
+#history-spoiler{
+	overflow: auto;
+	height: 100%;
+}
+.history-element{
+	border-bottom: 2px solid grey;
+	margin-bottom: 5px;
+}
+.history-element:last-child{
+	border-bottom: none;
+}
+#history-title{
+	font-size: 16pt;
+	font-weight: bold;
+	padding: 15px 0;
+	cursor: pointer;
+}
+.history-element .title{
+	font-size: 14pt;
+	text-align: center;
+	font-weight: bold;
+}
+.history-element .title.win{
+	color: #00ca00;
+}
+.history-element .title.lose{
+	color: red;
+}
+.history-element .cards{
+	display: flex;
+}
+.history-element .cards .card{
+	height: 130px;
+	width: 100%;
+	background: brown;
+	margin: 10px;
+	border-radius: 8px;
+	box-sizing: border-box;
+	filter: drop-shadow(0 0 2px grey);
+}
+.history-element .cards .card.prize{
+	background: gold;
+}
+
+.history-element .cards .card.selected{
+	border: 4px solid orange;
+}
 
 
 @media(max-width: 500px){

@@ -22,8 +22,8 @@ class Game {
 			remove_door.classList.add("removed")
 
 			if (document.querySelectorAll('#doors > .door:not(.removed)').length == 1){
-				this.onGameEnd(true)
 				document.querySelector('#doors > .door:not(.removed)').classList.add("prize")
+				this.onGameEnd(true)
 			} else{
 				callback()
 			}
@@ -37,41 +37,53 @@ var LANG = {
 		"title": "Monty Hall problem",
 		"game": ["Imagine that you are on a TV game.\nThere is a prize behind one of the doors, the rest are empty.\nChoose one of the doors:",
 				 "The host removes one of the empty doors and asks you:\n— Are you sure of your choice?"],
-		"win": "Congratulations! You won a prize!!! 🎉🎉🎉",
-		"lose": "Unfortunately you lost 😢",
+		"on_win": "Congratulations! You won a prize!!! 🎉🎉🎉",
+		"on_lose": "Unfortunately you lost 😢",
 
 		"select": "Select",
 		"skip": "Skip",
-		"again": "Repeat"
+		"again": "Repeat",
+
+		"history": "History",
+		"win": "Win",
+		"lose": "Loss"
 	},
 	"ru": {
 		"title": "Парадокс Монти Холла",
 		"game": ["Представьте что вы на телеигре.\nЗа одной из дверей приз, остальные пустые.\nВыберите одну из дверей:",
 				 "Ведущий убирает одну из пустых дверей и спрашивает вас:\n— Вы уверены в своём выборе?"],
-		"win": "Ура! Вы выиграли приз!!! 🎉🎉🎉",
-		"lose": "К сожалению, вы проиграли 😢",
+		"on_win": "Ура! Вы выиграли приз!!! 🎉🎉🎉",
+		"on_lose": "К сожалению, вы проиграли 😢",
 
 		"select": "Выбрать",
 		"skip": "Пропустить",
-		"again": "Повторить"
+		"again": "Повторить",
+
+		"history": "История",
+		"win": "Победа",
+		"lose": "Поражение"
 	},
 	"uk": {
 		"title": "Парадокс Монті Голла",
 		"game": ["Уявіть, що ви на телегрі.\nЗа однією з дверей приз, інші порожні.\nВиберіть одну з дверей:",
 				 "Ведучий прибирає одну з порожніх дверей і запитує вас: - Ви впевнені у своєму виборі?"],
-		"win": "Ура! Ви виграли приз! 🎉🎉🎉",
-		"lose": "На жаль, ви програли 😢",
+		"on_win": "Ура! Ви виграли приз! 🎉🎉🎉",
+		"on_lose": "На жаль, ви програли 😢",
 
 		"select": "Вибрати",
 		"skip": "Пропустити",
-		"again": "Повторити"
+		"again": "Повторити",
+
+		"history": "Історія",
+		"win": "Перемога",
+		"lose": "Поразка"
 	}
 }
 
 var canSelect = true;
-var skiper, game;
+var skiper, game, user_lang;
 function main(){
-	let user_lang = langEngine()
+	user_lang = langEngine()
 	localize(LANG[user_lang])
 
 	document.querySelector("#skip button").onclick = _=>{
@@ -115,12 +127,17 @@ function main(){
 		game.onGameEnd = function(result){
 			clear()
 			if (result){
-				skiper = print(LANG[user_lang].win)
+				skiper = print(LANG[user_lang].on_win)
 				document.querySelector("#titles").classList.add("win")
 			} else{
-				skiper = print(LANG[user_lang].lose)
+				skiper = print(LANG[user_lang].on_lose)
 				document.querySelector("#titles").classList.add("lose")
 			}
+			
+			pushHistory(result, {
+				prize_door: document.querySelector("#doors > .door.prize").getAttribute("num"),
+				selected_door: document.querySelector("#doors > .door.selected").getAttribute("num")
+			})
 
 			setTimeout(_=>{
 				button.innerHTML = LANG[user_lang].again
@@ -216,4 +233,37 @@ function localize(dict){
 	document.title = dict.title
 	document.querySelector("#skip button").innerHTML = dict.skip
 	document.querySelector("#select-button button").innerHTML = dict.select
+	document.querySelector("#history-title").innerHTML = dict.history
+}
+
+function pushHistory(result, cards){
+	let count = document.querySelector("#history-counter").innerHTML.split("/").map(e=>parseInt(e))
+	count[1]++;
+	let element = parseHTML(`<div class="history-element">
+		<div class="title"></div>
+		<div class="cards">
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+		</div>
+	</div>`)
+	if (result){
+		count[0]++;
+		element.querySelector(".title").classList.add("win")
+		element.querySelector(".title").innerHTML = LANG[user_lang].win
+	} else {
+		element.querySelector(".title").classList.add("lose")
+		element.querySelector(".title").innerHTML = LANG[user_lang].lose
+	}
+	element.querySelector(`.cards .card:nth-child(${cards.prize_door})`).classList.add("prize")
+	element.querySelector(`.cards .card:nth-child(${cards.selected_door})`).classList.add("selected")
+	document.querySelector("#history").appendChild(element)
+
+	document.querySelector("#history-counter").innerHTML = count.join("/")
+}
+
+function parseHTML(txt) {
+	var t = document.createElement('template');
+    t.innerHTML = txt;
+    return t.content.firstChild;
 }

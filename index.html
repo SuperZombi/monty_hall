@@ -3,12 +3,15 @@
 <head>
 	<title>Monty Hall problem</title>
 	<link rel="icon" type="image/png" href="images/car.png"/>
-	<link rel="stylesheet" href="main.css">
-	<script src="main.js"></script>
 	<meta name='viewport' content='width=device-width'>
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="menu.css">
+	<script src="main.js"></script>
+
 	<!-- og:zone -->
-	<meta property="og:image" content="https://superzombi.github.io/monty_hall/images/preview.jpeg">
+	<meta property="og:image" content="images/preview.jpeg">
 	<meta property="og:title" content="Monty Hall problem">
 </head>
 <body>
@@ -33,6 +36,23 @@
 			<a href="#ru">ru</a>
 			<a href="#uk">uk</a>
 		</div>
+	</div>
+
+	<div id="menuToggle">
+		<input type="checkbox"/>
+
+		<span></span>
+		<span></span>
+		<span></span>
+
+		<ul id="menu">
+			<details id="history-spoiler">
+				<summary id="history-title">History</summary>
+				<div id="history-counter" style="margin-left: 10px;">0/0</div>
+				<div id="history">
+				</div>
+			</details>
+		</ul>
 	</div>
 </body>
 </html>
