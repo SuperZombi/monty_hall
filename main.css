@@ -113,6 +113,12 @@ html, body{
 	margin-right: 8px;
 	border-radius: 12px 0 0 12px;
 }
+#titles.win:before{
+	background: lime;
+}
+#titles.lose:before{
+	background: red;
+}
 #titles > #titles-text{
 	padding: 5px;
 	overflow: auto;

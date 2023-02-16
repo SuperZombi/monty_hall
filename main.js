@@ -41,7 +41,8 @@ var LANG = {
 		"lose": "Unfortunately you lost 😢",
 
 		"select": "Select",
-		"skip": "Skip"
+		"skip": "Skip",
+		"again": "Repeat"
 	},
 	"ru": {
 		"title": "Парадокс Монти Холла",
@@ -51,7 +52,8 @@ var LANG = {
 		"lose": "К сожалению, вы проиграли 😢",
 
 		"select": "Выбрать",
-		"skip": "Пропустить"
+		"skip": "Пропустить",
+		"again": "Повторить"
 	},
 	"uk": {
 		"title": "Парадокс Монті Голла",
@@ -61,15 +63,15 @@ var LANG = {
 		"lose": "На жаль, ви програли 😢",
 
 		"select": "Вибрати",
-		"skip": "Пропустити"		
+		"skip": "Пропустити",
+		"again": "Повторити"
 	}
 }
 
-canSelect = true;
-var skiper;
+var canSelect = true;
+var skiper, game;
 function main(){
 	let user_lang = langEngine()
-	let game_text = LANG[user_lang].game
 	localize(LANG[user_lang])
 
 	document.querySelector("#skip button").onclick = _=>{
@@ -84,36 +86,57 @@ function main(){
 			}
 		}
 	})
-	
-	skiper = print(game_text.shift())
-	var game = new Game();
 
-	let button = document.querySelector("#select-button > button")
-	button.onclick = _=>{
-		if (document.querySelector("#doors > .door.selected")){
-			canSelect = false;
-			button.disabled = true;
-			game.next(_=>{
-				canSelect = true;
-				button.disabled = false;
-				clear()
-				skiper = print(game_text.shift())
-			});
-		} else{
-			button.classList.add("shake")
+	run()
+	function run(){
+		let game_text = Object.assign([], LANG[user_lang].game)
+		skiper = print(game_text.shift())
+		game = new Game();
+
+		let button = document.querySelector("#select-button > button")
+		button.onclick = _=>{
+			if (document.querySelector("#doors > .door.selected")){
+				canSelect = false;
+				button.disabled = true;
+				game.next(_=>{
+					canSelect = true;
+					button.disabled = false;
+					clear()
+					skiper = print(game_text.shift())
+				});
+			} else{
+				button.classList.add("shake")
+				setTimeout(_=>{
+					button.classList.remove("shake")
+				}, 900)
+			}
+		}
+
+		game.onGameEnd = function(result){
+			clear()
+			if (result){
+				skiper = print(LANG[user_lang].win)
+				document.querySelector("#titles").classList.add("win")
+			} else{
+				skiper = print(LANG[user_lang].lose)
+				document.querySelector("#titles").classList.add("lose")
+			}
+
 			setTimeout(_=>{
-				button.classList.remove("shake")
-			}, 900)
-		}
-	}
-
-	game.onGameEnd = function(result){
-		clear()
-		if (result){
-			print(LANG[user_lang].win)
-		} else{
-			print(LANG[user_lang].lose)
-		}
+				button.innerHTML = LANG[user_lang].again
+				button.onclick = _=>{
+					clear()
+					button.innerHTML = LANG[user_lang].select
+					document.querySelector("#titles").classList.remove("win", "lose")
+					document.querySelectorAll("#doors > .door").forEach(e=>{
+						e.classList.remove("selected", "removed", "prize")
+					})
+					canSelect = true;
+					run();
+				}
+				button.disabled = false
+			}, 500)
+		}	
 	}
 }
 
