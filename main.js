@@ -69,6 +69,7 @@ canSelect = true;
 var skiper;
 function main(){
 	let user_lang = langEngine()
+	alert(user_lang)
 	let game_text = LANG[user_lang].game
 	localize(LANG[user_lang])
 
