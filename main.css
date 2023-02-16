@@ -1,0 +1,195 @@
+html, body{
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+#screen{
+	height: 100vh;
+	width: 100vw;
+	background: grey;
+}
+
+#doors{
+	width: 100vw;
+	height: calc(50% - 20px);
+	text-align: center;
+	overflow: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+	padding: 10px 0;
+	user-select: none;
+}
+.door{
+	width: calc(33% - 42px);
+	max-width: 240px;
+	display: inline-block;
+	height: 100%;
+	background: brown;
+	cursor: pointer;
+	margin: 0 20px 0;
+	box-sizing: border-box;
+	border-radius: 6px;
+	transition: 0.12s ease;
+}
+.door.selected{
+	border: 4px solid yellow;
+}
+.door.prize{
+	background: gold;
+}
+.door.removed{
+	filter: grayscale(1);
+}
+
+#select-button{
+	text-align: center;
+	margin-top: 10px;
+}
+.button-46 {
+  background-color: rgba(240, 240, 240, 0.26);
+  border: 1px solid #DFDFDF;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 25px;
+  padding: 10px 100px;
+  max-width: 100%;
+  transition: all .2s;
+  user-select: none;
+  margin: auto;
+}
+.button-46:active,
+.button-46:hover {
+  outline: 0;
+  color: black;
+}
+.button-46:hover {
+  background-color: white;
+  border-color: rgba(0, 0, 0, 0.19);
+}
+.button-46:disabled{
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.button-46.shake{
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+
+#titles{
+	font-size: 16pt;
+	color: white;
+	height: 105px;
+	background: #606060;
+	padding: 10px;
+	position: relative;
+	margin-bottom: 10px;
+}
+#titles:before{
+	content: '';
+	display: inline-block;
+	width: 4px;
+	height: 100%;
+	background: orange;
+	float:left;
+	margin-right: 8px;
+	border-radius: 12px 0 0 12px;
+}
+#titles > #titles-text{
+	padding: 5px;
+	overflow: auto;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+
+#skip{
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	opacity: 0.5;
+	transition: 0.25s;
+}
+#skip:hover{
+	opacity: 1;
+}
+.button-22 {
+  background-color: #0276FF;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11pt;
+  padding: 6px 18px;
+  transition: .13s ease-in-out;
+  user-select: none;
+}
+.button-22:hover {
+  background-color: #1C84FF;
+}
+.button-22:active {
+  background-color: #006AE8;
+}
+
+
+#footer{
+	position: fixed;
+	bottom: 2px;
+	width: 100%;
+	text-align: center;
+}
+#footer a{
+	color: lightgrey;
+	text-decoration: none;
+	margin: 4px;
+}
+#footer a.selected{
+	color: lightblue;
+	font-weight: bold;
+}
+
+
+
+@media(max-width: 500px){
+	#doors{
+		height: calc(32% - 20px);
+	}
+	.door{
+		margin: 0 5px 0;
+		width: calc(33% - 12px);
+	}
+	#skip{
+		right: 5px;
+		bottom: 5px;
+		
+	}
+	#skip .button-22 {
+	  font-size: 10pt;
+	  padding: 4px 12px;
+	}
+}
+@media(max-height: 500px){
+	.door{
+		max-width: 120px;
+	}
+}
