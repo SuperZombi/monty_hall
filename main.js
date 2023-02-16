@@ -69,7 +69,6 @@ canSelect = true;
 var skiper;
 function main(){
 	let user_lang = langEngine()
-	alert(user_lang)
 	let game_text = LANG[user_lang].game
 	localize(LANG[user_lang])
 
@@ -111,9 +110,9 @@ function main(){
 	game.onGameEnd = function(result){
 		clear()
 		if (result){
-			print(LANG["ru"].win)
+			print(LANG[user_lang].win)
 		} else{
-			print(LANG["ru"].lose)
+			print(LANG[user_lang].lose)
 		}
 	}
 }
