@@ -198,6 +198,7 @@ function print(text, speed=50, end=""){
 				input.innerHTML = input.innerHTML.slice(0, -1)
 			}
 		}
+		input.scrollTo(0, input.scrollHeight);
 	}
 
 	_print(

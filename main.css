@@ -164,6 +164,7 @@ html, body{
 	width: 100%;
 	text-align: center;
 	user-select: none;
+	font-size: 17px;
 }
 #footer a{
 	color: lightgrey;
