@@ -46,7 +46,11 @@ var LANG = {
 
 		"history": "History",
 		"win": "Win",
-		"lose": "Loss"
+		"lose": "Loss",
+
+		"about": "About",
+		"video": "Video",
+		"video_src": "en.mp4"
 	},
 	"ru": {
 		"title": "Парадокс Монти Холла",
@@ -61,7 +65,11 @@ var LANG = {
 
 		"history": "История",
 		"win": "Победа",
-		"lose": "Поражение"
+		"lose": "Поражение",
+
+		"about": "Подробнее",
+		"video": "Видео",
+		"video_src": "ru.mp4"
 	},
 	"uk": {
 		"title": "Парадокс Монті Голла",
@@ -76,7 +84,11 @@ var LANG = {
 
 		"history": "Історія",
 		"win": "Перемога",
-		"lose": "Поразка"
+		"lose": "Поразка",
+
+		"about": "Детальніше",
+		"video": "Відео",
+		"video_src": "ua.mp4"
 	}
 }
 
@@ -88,6 +100,13 @@ function main(){
 
 	document.querySelector("#skip button").onclick = _=>{
 		if (skiper){skiper()}
+	}
+	document.querySelector("#open-video").onclick = _=>{
+		document.querySelector("#video-area").classList.remove("hide")
+	}
+	document.querySelector("#close-video-area").onclick = _=>{
+		document.querySelector("#video-area").classList.add("hide")
+		document.querySelector("#video-area video").pause()
 	}
 
 	document.querySelectorAll("#doors > .door").forEach(e=>{
@@ -235,6 +254,9 @@ function localize(dict){
 	document.querySelector("#skip button").innerHTML = dict.skip
 	document.querySelector("#select-button button").innerHTML = dict.select
 	document.querySelector("#history-title").innerHTML = dict.history
+	document.querySelector("#about").innerHTML = dict.about
+	document.querySelector("#open-video").innerHTML = dict.video
+	document.querySelector("#video-area video").src = `videos/${dict.video_src}`
 }
 
 function pushHistory(result, cards){
